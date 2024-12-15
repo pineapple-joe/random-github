@@ -11,6 +11,6 @@
       "128": "icon.png"
     }
   },
-  "permissions": ["tabs"]
+  "permissions": ["tabs", "storage"]
 }
 

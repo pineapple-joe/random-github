@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      width: 200px;
+      width: 220px;
       text-align: center;
     }
     button {
@@ -16,16 +16,32 @@
       padding: 10px;
       cursor: pointer;
       width: 100%;
+      margin-top: 10px;
     }
     button:hover {
       background-color: #45a049;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <h3>Get Random Repo</h3>
+  <label for="language">Choose a language:</label>
+  <select id="language">
+    <option value="">No Language Filter</option>
+    <option value="javascript">JavaScript</option>
+    <option value="python">Python</option>
+    <option value="java">Java</option>
+    <option value="ruby">Ruby</option>
+    <option value="go">Go</option>
+    <option value="clojure">Clojure</option>
+    <option value="typescript">TypeScript</option>
+  </select>
   <button id="fetch-repo">Open Random Repo</button>
   <script src="popup.js"></script>
 </body>
 </html>
-

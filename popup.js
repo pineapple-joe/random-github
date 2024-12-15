@@ -1,25 +1,52 @@
-document.getElementById("fetch-repo").addEventListener("click", () => {
-  const randomLetter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
-  const url = `https://api.github.com/search/repositories?q=${randomLetter}+stars:>100+stars:<1500&sort=stars&order=desc&per_page=100&page=1`;
+document.addEventListener("DOMContentLoaded", () => {
+  const languageDropdown = document.getElementById("language");
+  const fetchButton = document.getElementById("fetch-repo");
 
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (data.items && data.items.length > 0) {
-        const randomRepo = data.items[Math.floor(Math.random() * data.items.length)];
-        chrome.tabs.create({ url: randomRepo.html_url });
-      } else {
-        alert("No repositories found. Try again!");
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      alert("An error occurred while fetching the repository.");
-    });
+  // Load the saved language preference from chrome.storage
+  chrome.storage.sync.get("selectedLanguage", (data) => {
+    if (data.selectedLanguage) {
+      languageDropdown.value = data.selectedLanguage;
+    }
+  });
+
+  // Save the selected language when the user changes it
+  languageDropdown.addEventListener("change", () => {
+    const selectedLanguage = languageDropdown.value;
+    chrome.storage.sync.set({ selectedLanguage });
+  });
+
+  // Fetch a random GitHub repo when the button is clicked
+  fetchButton.addEventListener("click", () => {
+    const language = languageDropdown.value;
+    const randomLetter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
+
+    let query = `${randomLetter}+stars:>100+stars:<1500`;
+
+    if (language) {
+      query += `+language:${language}`;
+    }
+
+    const url = `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc&per_page=100&page=1`;
+    console.log(url)
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.items && data.items.length > 0) {
+          const randomRepo = data.items[Math.floor(Math.random() * data.items.length)];
+          chrome.tabs.update({ url: randomRepo.html_url });
+        } else {
+          alert("No repositories found. Try again!");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("An error occurred while fetching the repository.");
+      });
+  });
 });
-
