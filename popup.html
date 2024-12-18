@@ -3,36 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Random GitHub Repo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      width: 220px;
-      text-align: center;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 10px;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 10px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
 <body>
-  <h3>Get Random Repo</h3>
-  <label for="language">Choose a language:</label>
+  <h3 class="text">Random Repo</h3>
+  <label class="text" class="header" for="language">Choose a language:</label>
   <select id="language">
-    <option value="">No Language Filter</option>
+    <option value="">No Filter</option>
     <option value="javascript">JavaScript</option>
     <option value="python">Python</option>
     <option value="java">Java</option>
@@ -42,11 +19,16 @@
     <option value="typescript">TypeScript</option>
   </select>
 
-  <label for="label">Search by label:</label>
-  <input type="text" id="label" placeholder="Enter label or keyword">
+  <label id="label-header" for="label" class="text">Choose label:</label>
+  <input type="text" id="label" placeholder="Enter label">
 
+  <div id="fetch-repo" class="brightness">
+    <img src="icon_48.png" alt="icon" class="w-5 h-5 mr-2">
+  </div>
+  <!-- <button id="fetch-repo">
+    <img id="fetch-repo" src="icon_48.png" alt="icon" class="w-5 h-5 mr-2">
+  </button> -->
   
-  <button id="fetch-repo">Open Random Repo</button>
   <script src="popup.js"></script>
 </body>
 </html>
