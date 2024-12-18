@@ -37,3 +37,14 @@ body {
   .brightness img:hover {
       opacity: .5;
   }
+
+  /* Spinner Animation (if not using Tailwind CSS) */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

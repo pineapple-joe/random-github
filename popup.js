@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch a random GitHub repo when the button is clicked
   fetchButton.addEventListener("click", () => {
+
+    fetchButton.classList.add("animate-spin");
+
     const language = languageDropdown.value;
     const label = labelInput.value.trim();
     const randomLetter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
@@ -53,6 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           alert("No repositories found. Try again!");
         }
+      })
+      .finally(() => {
+        fetchButton.classList.remove("animate-spin");
       })
       .catch(error => {
         console.error(error);
